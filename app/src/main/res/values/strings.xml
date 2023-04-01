@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">PruebaTecnicaInterRapidisimo</string>
+
+    <!-- Home Fragment -->
+    <string name="homeFragment_statusImage_description_info">Pulsa un botón para realizar alguna acción.</string>
+    <string name="homeFragment_statusImage_description_error">Ocurrió un problema, intenta de nuevo.</string>
+    <string name="homeFragment_statusImage_description_success">La información fue recibida correctamente.</string>
+    <string name="homeFragment_getInfo_buttonText">Pulsa para consultar</string>
+    <string name="homeFragment_seeCreatedTables_buttonText">Pulsa para ver las tablas creadas</string>
 </resources>
