@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.pruebatecnicainterrapidisimo.data.local.Database
 import com.example.pruebatecnicainterrapidisimo.data.local.Table
 import com.example.pruebatecnicainterrapidisimo.databinding.DetailsFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,7 +43,8 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initializeViews()
-        observeState()
+        //observeState()
+        initializeAdapter()
     }
 
     private fun initializeViews() {
@@ -51,10 +53,11 @@ class DetailsFragment : Fragment() {
         searchView!!.clearFocus()
 
         binding.detailsFragmentRecyclerView.adapter = tableItemAdapter
-        searchView!!.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        searchView!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
+
             override fun onQueryTextChange(newText: String?): Boolean {
                 filterList(newText)
                 return false
@@ -63,10 +66,23 @@ class DetailsFragment : Fragment() {
         )
     }
 
+    private fun getTableNames(): List<Table> {
+        val tableList = mutableListOf<Table>()
+        val database = Database(requireContext(), listOf())
+        for( table in database.getTableNames2() ) {
+            tableList.add(Table(table))
+        }
+        return tableList
+    }
+
+    private fun initializeAdapter() {
+        binding.detailsFragmentRecyclerView.adapter = DetailsFragmentRecyclerAdapter(getTableNames())
+    }
+
     private fun observeState() {
         lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                detailsViewModel.tableList.collect{
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                detailsViewModel.tableList.collect {
                     binding.detailsFragmentRecyclerView.adapter = DetailsFragmentRecyclerAdapter(it)
                 }
             }
@@ -76,7 +92,7 @@ class DetailsFragment : Fragment() {
     private fun filterList(text: String?) {
         val filteredList: MutableList<Table> = mutableListOf()
 
-        for (table in detailsViewModel.tableList.value) {
+        for (table in getTableNames()) {
             text?.let {
                 if (table.name.lowercase().contains(text.lowercase())) {
                     filteredList.add(table)

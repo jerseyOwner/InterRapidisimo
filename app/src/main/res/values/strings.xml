@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PruebaTecnicaInterRapidisimo</string>
+    <string name="app_name">Inter Rapidisimo</string>
 
     <!-- Home Fragment -->
     <string name="homeFragment_statusImage_description_info">Pulsa un botón para realizar alguna acción.</string>

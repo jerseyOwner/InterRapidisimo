@@ -27,10 +27,14 @@
 
     <TextView
         android:id="@+id/homeFragment_statusImage_description"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
+        android:textStyle="bold"
+        android:textColor="@color/ir_black_main"
+        android:gravity="center"
         android:text="@string/homeFragment_statusImage_description_info"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/homeFragment_statusImage" />
@@ -41,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="40dp"
+        android:backgroundTint="@color/ir_black_main"
         android:text="@string/homeFragment_getInfo_buttonText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,6 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
+        android:backgroundTint="@color/ir_black_main"
         android:text="@string/homeFragment_seeCreatedTables_buttonText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

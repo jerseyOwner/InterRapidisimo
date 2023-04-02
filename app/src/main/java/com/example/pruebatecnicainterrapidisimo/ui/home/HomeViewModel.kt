@@ -2,7 +2,9 @@ package com.example.pruebatecnicainterrapidisimo.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pruebatecnicainterrapidisimo.data.local.Database
 import com.example.pruebatecnicainterrapidisimo.data.network.model.SchemeResponse
+import com.example.pruebatecnicainterrapidisimo.data.network.model.SchemeResponseItem
 import com.example.pruebatecnicainterrapidisimo.data.repository.NetworkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

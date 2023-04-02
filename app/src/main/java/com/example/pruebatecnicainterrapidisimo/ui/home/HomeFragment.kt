@@ -16,6 +16,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.pruebatecnicainterrapidisimo.R
+import com.example.pruebatecnicainterrapidisimo.data.local.Database
+import com.example.pruebatecnicainterrapidisimo.data.network.model.SchemeResponseItem
 import com.example.pruebatecnicainterrapidisimo.databinding.HomeFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -69,8 +71,8 @@ class HomeFragment : Fragment() {
     private fun observeState() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeViewModel.homeFragmentState.collect {
-                    when(it) {
+                homeViewModel.homeFragmentState.collect { state ->
+                    when(state) {
                         is HomeFragmentState.Loading -> {
                             progressBar?.visibility = View.VISIBLE
                             statusImage?.visibility = View.GONE
@@ -108,10 +110,20 @@ class HomeFragment : Fragment() {
                                 visibility = View.VISIBLE
                                 text = getString(R.string.homeFragment_statusImage_description_success)
                             }
+                            val list = getQueryList(state.schemeData)
+                            Database(requireContext(), list)
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun getQueryList(tablesList: List<SchemeResponseItem>): List<String> {
+        val list = mutableListOf<String>()
+        for (table in tablesList) {
+            list.add(table.queryCreacion)
+        }
+        return list
     }
 }
