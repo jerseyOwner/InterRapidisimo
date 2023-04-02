@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,7 +18,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.pruebatecnicainterrapidisimo.R
 import com.example.pruebatecnicainterrapidisimo.data.local.Database
-import com.example.pruebatecnicainterrapidisimo.data.network.model.SchemeResponseItem
 import com.example.pruebatecnicainterrapidisimo.databinding.HomeFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -41,6 +41,9 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.app_name)
+
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -110,20 +113,12 @@ class HomeFragment : Fragment() {
                                 visibility = View.VISIBLE
                                 text = getString(R.string.homeFragment_statusImage_description_success)
                             }
-                            val list = getQueryList(state.schemeData)
-                            Database(requireContext(), list)
+                            val db = Database(requireContext(), state.schemeData)
+                            db.updateTables()
                         }
                     }
                 }
             }
         }
-    }
-
-    private fun getQueryList(tablesList: List<SchemeResponseItem>): List<String> {
-        val list = mutableListOf<String>()
-        for (table in tablesList) {
-            list.add(table.queryCreacion)
-        }
-        return list
     }
 }

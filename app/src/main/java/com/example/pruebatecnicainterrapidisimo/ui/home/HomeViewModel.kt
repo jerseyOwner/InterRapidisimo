@@ -2,9 +2,6 @@ package com.example.pruebatecnicainterrapidisimo.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pruebatecnicainterrapidisimo.data.local.Database
-import com.example.pruebatecnicainterrapidisimo.data.network.model.SchemeResponse
-import com.example.pruebatecnicainterrapidisimo.data.network.model.SchemeResponseItem
 import com.example.pruebatecnicainterrapidisimo.data.repository.NetworkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,9 +19,6 @@ class HomeViewModel @Inject constructor(
 
     private val _homeFragmentState = MutableStateFlow<HomeFragmentState>(HomeFragmentState.Idle)
     val homeFragmentState: StateFlow<HomeFragmentState> = _homeFragmentState.asStateFlow()
-
-    private val _schemeData = MutableStateFlow<SchemeResponse>(SchemeResponse(listOf()))
-    val schemeData: StateFlow<SchemeResponse> = _schemeData.asStateFlow()
 
     fun getSchemeInfo() {
         viewModelScope.launch {

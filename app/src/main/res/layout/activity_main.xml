@@ -17,7 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/ir_black_main"
             app:navigationIcon="@null"
             app:popupTheme="@style/Theme.PruebaTecnicaInterRapidisimo.PopupOverlay" />
 

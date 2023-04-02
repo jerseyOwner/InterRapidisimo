@@ -5,22 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import com.example.pruebatecnicainterrapidisimo.R
 import com.example.pruebatecnicainterrapidisimo.data.local.Database
 import com.example.pruebatecnicainterrapidisimo.data.local.Table
 import com.example.pruebatecnicainterrapidisimo.databinding.DetailsFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
-
-    private val detailsViewModel by viewModels<DetailsViewModel>()
 
     private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
@@ -35,6 +30,9 @@ class DetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.detailsFragment_toolbarTitle)
+
         _binding = DetailsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -43,7 +41,6 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initializeViews()
-        //observeState()
         initializeAdapter()
     }
 
@@ -62,13 +59,13 @@ class DetailsFragment : Fragment() {
                 filterList(newText)
                 return false
             }
-        }
-        )
+        })
     }
 
     private fun getTableNames(): List<Table> {
         val tableList = mutableListOf<Table>()
         val database = Database(requireContext(), listOf())
+        database.updateTables()
         for( table in database.getTableNames2() ) {
             tableList.add(Table(table))
         }
@@ -77,16 +74,6 @@ class DetailsFragment : Fragment() {
 
     private fun initializeAdapter() {
         binding.detailsFragmentRecyclerView.adapter = DetailsFragmentRecyclerAdapter(getTableNames())
-    }
-
-    private fun observeState() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                detailsViewModel.tableList.collect {
-                    binding.detailsFragmentRecyclerView.adapter = DetailsFragmentRecyclerAdapter(it)
-                }
-            }
-        }
     }
 
     private fun filterList(text: String?) {
