@@ -7,4 +7,8 @@
     <string name="homeFragment_statusImage_description_success">La información fue recibida correctamente.</string>
     <string name="homeFragment_getInfo_buttonText">Pulsa para consultar</string>
     <string name="homeFragment_seeCreatedTables_buttonText">Pulsa para ver las tablas creadas</string>
+
+    <!-- Details Fragment -->
+    <string name="detailsFragment_title">Estas son las tablas que tienes creadas:</string>
+    <string name="detailsFragment_queryHint">Escribe para buscar …</string>
 </resources>

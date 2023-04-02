@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.pruebatecnicainterrapidisimo.R
 import com.example.pruebatecnicainterrapidisimo.databinding.HomeFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,10 +28,11 @@ class HomeFragment : Fragment() {
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private var getInfoButton: Button? = null
     private var statusImage: ImageView? = null
     private var statusImageDescription: TextView? = null
     private var progressBar: ProgressBar? = null
+    private var getInfoButton: Button? = null
+    private var seeCreatedTablesButton: Button? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,13 +51,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun initializeViews() {
-        getInfoButton = binding.homeFragmentGetInfoButton
         statusImage = binding.homeFragmentStatusImage
         statusImageDescription = binding.homeFragmentStatusImageDescription
         progressBar = binding.homeFragmentProgressBar
+        getInfoButton = binding.homeFragmentGetInfoButton
+        seeCreatedTablesButton = binding.homeFragmentSeeCreatedTables
 
         getInfoButton?.setOnClickListener {
             homeViewModel.getSchemeInfo()
+        }
+
+        seeCreatedTablesButton?.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_detailsFragment)
         }
     }
 

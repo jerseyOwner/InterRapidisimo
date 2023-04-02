@@ -19,10 +19,10 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _homeFragmentState = MutableStateFlow<HomeFragmentState>(HomeFragmentState.Idle)
-    var homeFragmentState: StateFlow<HomeFragmentState> = _homeFragmentState.asStateFlow()
+    val homeFragmentState: StateFlow<HomeFragmentState> = _homeFragmentState.asStateFlow()
 
     private val _schemeData = MutableStateFlow<SchemeResponse>(SchemeResponse(listOf()))
-    var schemeData: StateFlow<SchemeResponse> = _schemeData.asStateFlow()
+    val schemeData: StateFlow<SchemeResponse> = _schemeData.asStateFlow()
 
     fun getSchemeInfo() {
         viewModelScope.launch {
